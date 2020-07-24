@@ -99,6 +99,7 @@ wordpress_with_database(){
     local email="mclive.case@gmail.com"
     local WORKINGDIR="/home/$user/web/$domain/public_html"
     local DBUSERSUFB="wp"
+    local VESTA='/usr/local/vesta'
 
     if [ ! -d "/home/$user" ]; then
         echo "User doesn't exist";
@@ -122,12 +123,11 @@ wordpress_with_database(){
     fi
     done
     
-    echo "Probando a este punto $DBUSERSUF : $DBUSER";
-    return
     local PASSWDDB=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
 
-    v-add-database $user $DBUSERSUF $DBUSERSUF $PASSWDDB mysql
+    $VESTA/bin/v-add-database $user $DBUSERSUF $DBUSERSUF $PASSWDDB mysql
 
+    echo "Probando a este punto $user $DBUSERSUF $DBUSERSUF $PASSWDDB mysql";
     cd /home/$user
 
     rm -rf /home/$user/wp
