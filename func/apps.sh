@@ -94,7 +94,7 @@ wordpress() {
     echo -e "\nInstalacion Completada"
 }
 random_password(){
-    cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1
+   return cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1
 }
 wordpress_with_database(){
     local user="$1"
