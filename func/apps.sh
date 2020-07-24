@@ -99,7 +99,7 @@ wordpress_with_database(){
     local email="mclive.case@gmail.com"
     local WORKINGDIR="/home/$user/web/$domain/public_html"
     local DBUSERSUFB="wp"
-    local VESTA=''
+    local VESTA=""
 
     if [ ! -d "/home/$user" ]; then
         echo "User doesn't exist";
@@ -110,43 +110,44 @@ wordpress_with_database(){
         echo "Domain doesn't exist";
         return
     fi
-    rm -rf $WORKINGDIR/*
+    rm -rf "$WORKINGDIR/*"
 
     i=0;
     while [ $i -lt 99 ]
     do
     i=$((i+1));
      DBUSERSUF="${DBUSERSUFB}${i}";
-     DBUSER=$user\_$DBUSERSUF;
+     DBUSER="$user\_$DBUSERSUF";
     if [ ! -d "/var/lib/mysql/$DBUSER" ]; then
     break;
     fi
     done
     
-    local PASSWDDB=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
+    local PASSWDDB="$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)"
 
-    /usr/bin/sudo /usr/local/vesta/bin/v-add-database $user $DBUSERSUF $DBUSERSUF $PASSWDDB mysql
+    echo "Probando a este punto $user $DBUSERSUF $DBUSERSUF $PASSWDDB mysql"
+    return
+    /usr/local/vesta/bin/v-add-database "$user" "$DBUSERSUF" "$DBUSERSUF" "$PASSWDDB" "mysql"
 
-    echo "Probando a este punto $user $DBUSERSUF $DBUSERSUF $PASSWDDB mysql";
-    cd /home/$user
+    cd "/home/$user"
 
-    rm -rf /home/$user/wp
+    rm -rf "/home/$user/wp"
     curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
     chmod +x wp-cli.phar
     sudo mv wp-cli.phar wp
 
-    cd /home/$user/web/$domain/public_html
+    cd "/home/$user/web/$domain/public_html"
 
-    sudo -H -u$user php -d disable_functions="" /home/$user/wp core download
-    sudo -H -u$user php -d disable_functions="" /home/$user/wp core config --dbname=$DBUSER --dbuser=$DBUSER --dbpass=$PASSWDDB
+    sudo -H -u"$user" php -d disable_functions="" "/home/$user/wp" core download
+    sudo -H -u"$user" php -d disable_functions="" "/home/$user/wp" core config --dbname="$DBUSER" --dbuser="$DBUSER" --dbpass="$PASSWDDB"
 
     local password=$(LC_CTYPE=C tr -dc A-Za-z0-9_\!\@\#\$\%\^\&\*\(\)-+= < /dev/urandom | head -c 12)
 
-    sudo -H -u$user php -d disable_functions="" /home/$user/wp core install --url="$domain" --title="$domain" --admin_user="admin" --admin_password="$password" --admin_email="$email" --path=$WORKINGDIR
+    sudo -H -u"$user" php -d disable_functions="" "/home/$user/wp" core install --url="$domain" --title="$domain" --admin_user="admin" --admin_password="$password" --admin_email="$email" --path="$WORKINGDIR"
 
     #FIX za https://github.com/wp-cli/wp-cli/issues/2632
 
-    mysql -u$DBUSER -p$PASSWDDB -e "USE $DBUSER; update wp_options set option_value = 'https://$domain' where option_name = 'siteurl'; update wp_options set option_value = 'https://$domain' where option_name = 'home';"
+    mysql -u"$DBUSER" -p"$PASSWDDB" -e "USE $DBUSER; update wp_options set option_value = 'https://$domain' where option_name = 'siteurl'; update wp_options set option_value = 'https://$domain' where option_name = 'home';"
 
     # clear
 
