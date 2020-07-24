@@ -122,7 +122,7 @@ wordpress_with_database(){
     fi
     done
     echo "Probando a este punto $user $DBUSERSUF $DBUSERSUF mysql"
-    local PASSWDDB="$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)"
+    local PASSWDDB=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
 
     echo "Probando a este punto $user $DBUSERSUF $DBUSERSUF $PASSWDDB mysql"
     return
