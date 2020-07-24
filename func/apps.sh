@@ -110,14 +110,13 @@ wordpress_with_database(){
         echo "Domain doesn't exist";
         return
     fi
-    rm -rf "$WORKINGDIR/*"
 
     i=0;
     while [ $i -lt 99 ]
     do
     i=$((i+1));
      DBUSERSUF="${DBUSERSUFB}${i}";
-     DBUSER="$user\_$DBUSERSUF";
+     DBUSER=$user\_$DBUSERSUF;
     if [ ! -d "/var/lib/mysql/$DBUSER" ]; then
     break;
     fi
