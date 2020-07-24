@@ -111,8 +111,6 @@ wordpress_with_database(){
     fi
     rm -rf $WORKINGDIR/*
 
-    echo "Probando a este punto";
-    return
     i=0;
     while [ $i -lt 99 ]
     do
@@ -123,6 +121,9 @@ wordpress_with_database(){
     break;
     fi
     done
+    
+    echo "Probando a este punto $DBUSERSUF : $DBUSER";
+    return
     local PASSWDDB=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
 
     v-add-database $user $DBUSERSUF $DBUSERSUF $PASSWDDB mysql
