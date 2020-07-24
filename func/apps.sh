@@ -109,10 +109,10 @@ wordpress_with_database(){
         echo "Domain doesn't exist";
         return
     fi
-    echo "Probando a este punto";
-    return
     rm -rf $WORKINGDIR/*
 
+    echo "Probando a este punto";
+    return
     i=0;
     while [ $i -lt 99 ]
     do

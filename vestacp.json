@@ -1,7 +1,7 @@
 {
   "name": "web-apps",
   "description": "Instala aplicaciones como Wordpress en un solo click.",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "min-vesta": "0.9.8",
   "repository": "https://github.com/McL1V3/custom-web-apps",
   "homepage": "https://github.com/McL1V3/custom-web-apps",
