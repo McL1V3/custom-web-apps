@@ -125,7 +125,7 @@ wordpress_with_database(){
     fi
     done
     random_password $randonize
-    echo 
+    echo $randonize
     return
     PASSWDDB=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
 
