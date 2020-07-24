@@ -121,7 +121,9 @@ wordpress_with_database(){
     break;
     fi
     done
-    echo "Probando a este punto $user $DBUSERSUF $DBUSERSUF mysql"
+    echo $(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
+    echo "$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)"
+    return
     PASSWDDB=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1)
 
     echo "Probando a este punto $user $DBUSERSUF $DBUSERSUF $PASSWDDB mysql"
