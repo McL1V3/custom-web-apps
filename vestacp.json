@@ -1,0 +1,13 @@
+{
+  "name": "web-apps",
+  "description": "Instala aplicaciones como Wordpress en un solo click.",
+  "version": "0.1.3",
+  "min-vesta": "0.9.8",
+  "repository": "https://gipsac.com/app-rename.zip",
+  "homepage": "https://gipsac.com/app-rename",
+  "author": {
+    "name": "Cesar Salvatierra",
+    "email": "mclive.case@gmail.com",
+    "homepage": "https://gipsac.com"
+  }
+}
